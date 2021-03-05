@@ -16,7 +16,6 @@ export class ProductController implements OnApplicationBootstrap {
     @Query('sort') sort: string,
   ) {
     try {
-      this.logger.log('checking for products', `limit ${limit}`);
       const products = this.productService.getProducts();
       return products;
     } catch (exception) {
