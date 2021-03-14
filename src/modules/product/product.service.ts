@@ -3,13 +3,22 @@ import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/operators';
 import { CustomLogger } from '../../base/logger/logger.service';
 import * as fs from 'fs';
+import { ConfigurationService } from '../configuration/configuration.service';
 
 @Injectable()
 export class ProductService {
-  constructor(private http: HttpService, private logger: CustomLogger) {
-  }
-  public getProducts(): Observable<boolean> {
-    return this.http.get('https://eve.theiconic.com.au/catalog/products?gender=female&page=1&page_size=100&sort=popularity')
+  constructor(
+    private http: HttpService,
+    private logger: CustomLogger,
+    private config: ConfigurationService,
+  ) {}
+  public getProducts(params): Observable<boolean> {
+    return this.http.get(
+      `${this.config.getAsString('PRODUCT_SERVER')}${this.config.getAsString('PRODUCT_URL')}`,
+      {
+        params,
+      },
+    )
     .pipe(
       map((response: any) => {
         try {

@@ -14,10 +14,10 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET)', () => {
+  it('/api/product (GET)', () => {
     return request(app.getHttpServer())
-      .get('/')
+      .get('/api/product?limit=100&page=1')
       .expect(200)
-      .expect('Hello World!');
+      .expect(true);
   });
 });

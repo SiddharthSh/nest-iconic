@@ -8,9 +8,11 @@ async function bootstrap() {
   const config = app.get(ConfigurationService);
   app.select(AppModule);
   app.enableCors();
-  app.useGlobalPipes(new ValidationPipe({
-    transform: true,
-  }));
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+    }),
+  );
   app.setGlobalPrefix('/api');
   await app.listen(config.getAsNumber('PORT'), '0.0.0.0');
 }
